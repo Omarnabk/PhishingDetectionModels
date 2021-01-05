@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 from keras.callbacks import EarlyStopping
+from keras.callbacks import ModelCheckpoint
 from keras.layers import Convolution1D
 from keras.layers import Dropout
 from keras.layers import Embedding
@@ -94,11 +95,18 @@ class CharCNNZhang(object):
               epochs=10, batch_size=128, model_name='', report_name='',
               ):
 
+        if not os.path.exists(model_name):
+            os.makedirs(model_name)
+
+        checkpoint = ModelCheckpoint(model_name + f"/model_{fold_id}.h5",
+                                     monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
+
         early_stopping = EarlyStopping(monitor='val_f1_m',
                                        patience=5,
                                        verbose=1,
                                        mode='auto')
 
+        callbacks_list = [checkpoint, early_stopping]
         print("Training CharCNNZhang model: ")
         if validation_inputs is None:
             history = self.model.fit(training_inputs, training_labels,
@@ -107,7 +115,7 @@ class CharCNNZhang(object):
                                      # class_weight={0: 0.3, 1: 0.7},
                                      batch_size=batch_size,
                                      verbose=2,
-                                     callbacks=[early_stopping])
+                                     callbacks=callbacks_list)
         else:
             history = self.model.fit(training_inputs, training_labels,
                                      validation_data=(validation_inputs, validation_labels),
@@ -118,8 +126,6 @@ class CharCNNZhang(object):
                                      verbose=2,
                                      callbacks=[early_stopping])
 
-        if not os.path.exists(model_name):
-            os.makedirs(model_name)
         # serialize model to JSON
         model_json = self.model.to_json()
         with open(model_name + f"/model_{fold_id}.json", "w") as json_file:

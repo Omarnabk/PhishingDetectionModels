@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 from keras.callbacks import EarlyStopping
+from keras.callbacks import ModelCheckpoint
 from keras.layers import AlphaDropout
 from keras.layers import Convolution1D
 from keras.layers import Embedding
@@ -96,13 +97,18 @@ class CharCNNKim(object):
               epochs=10, batch_size=128, model_name='', report_name='',
               ):
 
+        if not os.path.exists(model_name):
+            os.makedirs(model_name)
 
-        early_stopping = EarlyStopping(monitor='val_loss',
+        checkpoint = ModelCheckpoint(model_name + f"/model_{fold_id}.h5",
+                                     monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
+
+        early_stopping = EarlyStopping(monitor='val_f1_m',
                                        patience=5,
                                        verbose=1,
-                                       mode='min')
+                                       mode='auto')
 
-        # Start training
+        callbacks_list = [checkpoint, early_stopping]
         print("Training CharCNNKim model: ")
         if validation_inputs is None:
             history = self.model.fit(training_inputs, training_labels,
@@ -111,7 +117,7 @@ class CharCNNKim(object):
                                      # class_weight={0: 0.3, 1: 0.7},
                                      batch_size=batch_size,
                                      verbose=2,
-                                     callbacks=[early_stopping])
+                                     callbacks=callbacks_list)
         else:
             history = self.model.fit(training_inputs, training_labels,
                                      validation_data=(validation_inputs, validation_labels),
@@ -122,8 +128,6 @@ class CharCNNKim(object):
                                      verbose=2,
                                      callbacks=[early_stopping])
 
-        if not os.path.exists(model_name):
-            os.makedirs(model_name)
         # serialize model to JSON
         model_json = self.model.to_json()
         with open(model_name + f"/model_{fold_id}.json", "w") as json_file:
@@ -134,8 +138,8 @@ class CharCNNKim(object):
 
         print('Testing Result')
         y_pred_testing = self.model.predict(testing_inputs, batch_size=batch_size, verbose=1)
-        report = print_result(np.argmax(testing_labels, axis=1), np.argmax(y_pred_testing, axis=1))
-        classification_report_csv(report, report_name)
+        print_result(np.argmax(testing_labels, axis=1), np.argmax(y_pred_testing, axis=1))
+        classification_report_csv(np.argmax(testing_labels, axis=1), np.argmax(y_pred_testing, axis=1), report_name)
 
         return history
 
