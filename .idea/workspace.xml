@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0bd2c107-aa8c-4137-8197-f67886f8fefb" name="Default Changelist" comment="" />
+    <list default="true" id="0bd2c107-aa8c-4137-8197-f67886f8fefb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_kim.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_kim.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_tcn.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_tcn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,15 +20,20 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1meDMHClnfTgVmV5Q8G5h3iToYj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../FileNameClassification - model_builder" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -34,28 +45,7 @@
       <recent name="G:\backup\PyCharmProjects\PhishingDetection" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="dataset_builder" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PhishingDetection" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model_builder/model_CNN_char_Path" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model_builder/model_CNN_char_Path/dataset_builder.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PhishingDetection" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -68,7 +58,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model_builder/model_CNN_char_Path/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model_builder/CharCNN_Models/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -77,18 +67,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.dataset_builder" />
-      <item itemvalue="Python.main" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.dataset_builder" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Wesam\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0bd2c107-aa8c-4137-8197-f67886f8fefb" name="Default Changelist" comment="" />
@@ -97,65 +85,139 @@
       <option name="presentableId" value="Default" />
       <updated>1609845113733</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1609853905378</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1609853905378</updated>
+    </task>
+    <task id="LOCAL-00002" summary="improve model structure">
+      <created>1609861020278</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609861020278</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Shuffle the samples">
+      <created>1609863033020</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609863033020</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Change best model name">
+      <created>1609863128317</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609863128317</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="improve model structure" />
+    <MESSAGE value="Shuffle the samples" />
+    <MESSAGE value="Change best model name" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change best model name" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609848701613">
+    <state x="395" y="91" key="#Inspections" timestamp="1609858054433">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="395" y="91" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1609858054433" />
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609860704211">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609860704211" />
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1609848701613" />
-    <state x="524" y="92" key="#xdebugger.evaluate" timestamp="1609852427402">
+    <state x="688" y="231" width="588" height="593" key="#xdebugger.evaluate" timestamp="1609862304778">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="524" y="92" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1609852427402" />
+    <state x="688" y="231" key="#xdebugger.evaluate/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862304778" />
+    <state x="919" y="231" width="588" height="593" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1609859195431" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1609851015324">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1609851015324" />
-    <state width="1515" height="221" key="GridCell.Tab.0.bottom" timestamp="1609853526733">
+    <state width="1515" height="307" key="GridCell.Tab.0.bottom" timestamp="1609862635508">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="221" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609853526733" />
-    <state width="1515" height="221" key="GridCell.Tab.0.center" timestamp="1609853526723">
+    <state width="1515" height="307" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="301" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
+    <state width="1515" height="307" key="GridCell.Tab.0.center" timestamp="1609862635508">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="221" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609853526723" />
-    <state width="1515" height="221" key="GridCell.Tab.0.left" timestamp="1609853526719">
+    <state width="1515" height="307" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="301" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
+    <state width="1515" height="307" key="GridCell.Tab.0.left" timestamp="1609862635508">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="221" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609853526719" />
-    <state width="1515" height="221" key="GridCell.Tab.0.right" timestamp="1609853526728">
+    <state width="1515" height="307" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="301" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
+    <state width="1515" height="307" key="GridCell.Tab.0.right" timestamp="1609862635508">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="221" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609853526728" />
-    <state width="1515" height="253" key="GridCell.Tab.1.bottom" timestamp="1609852545431">
+    <state width="1515" height="307" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="301" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
+    <state width="1515" height="256" key="GridCell.Tab.1.bottom" timestamp="1609862306808">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="253" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609852545431" />
-    <state width="1515" height="253" key="GridCell.Tab.1.center" timestamp="1609852545431">
+    <state width="1515" height="256" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862306808" />
+    <state width="1515" height="355" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609859214265" />
+    <state width="1515" height="256" key="GridCell.Tab.1.center" timestamp="1609862306808">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="253" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1609852545431" />
-    <state width="1515" height="253" key="GridCell.Tab.1.left" timestamp="1609852545431">
+    <state width="1515" height="256" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862306808" />
+    <state width="1515" height="355" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1609859214264" />
+    <state width="1515" height="256" key="GridCell.Tab.1.left" timestamp="1609862306808">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="253" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1609852545431" />
-    <state width="1515" height="253" key="GridCell.Tab.1.right" timestamp="1609852545431">
+    <state width="1515" height="256" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862306808" />
+    <state width="1515" height="355" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1609859214264" />
+    <state width="1515" height="256" key="GridCell.Tab.1.right" timestamp="1609862306808">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="253" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1609852545431" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1609845522695">
+    <state width="1515" height="256" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862306808" />
+    <state width="1515" height="355" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1609859214264" />
+    <state x="277" y="57" key="SettingsEditor" timestamp="1609853926969">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1609845522695" />
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1609853926969" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1609863033215">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609863033215" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1609853939021" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1609860817088">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609860817088" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model_builder/model_CNN_char_Path/char_cnn_zhang.py</url>
-          <line>161</line>
+          <url>file://$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py</url>
+          <line>152</line>
           <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py</url>
+          <line>133</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model_builder/data_utils_general.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model_builder/CharCNN_Models/main.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

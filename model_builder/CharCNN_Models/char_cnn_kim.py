@@ -101,12 +101,13 @@ class CharCNNKim(object):
             os.makedirs(model_name)
 
         checkpoint = ModelCheckpoint(model_name + f"/best_model_{fold_id}.h5",
-                                     monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
+                                     monitor='val_loss', verbose=1, save_best_only=True, mode='min')
 
-        early_stopping = EarlyStopping(monitor='val_f1_m',
+        early_stopping = EarlyStopping(monitor='val_loss',
                                        patience=5,
                                        verbose=1,
-                                       mode='auto')
+                                       mode='min')
+
 
         callbacks_list = [checkpoint, early_stopping]
         print("Training CharCNNKim model: ")
