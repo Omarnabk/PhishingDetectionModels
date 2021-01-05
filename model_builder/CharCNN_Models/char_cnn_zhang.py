@@ -98,7 +98,7 @@ class CharCNNZhang(object):
         if not os.path.exists(model_name):
             os.makedirs(model_name)
 
-        checkpoint = ModelCheckpoint(model_name + f"/model_{fold_id}.h5",
+        checkpoint = ModelCheckpoint(model_name + f"/best_model_{fold_id}.h5",
                                      monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
 
         early_stopping = EarlyStopping(monitor='val_f1_m',
