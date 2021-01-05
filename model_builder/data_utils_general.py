@@ -2,9 +2,10 @@ import pandas as pd
 import tensorflow as tf
 from keras import backend as K
 from sklearn import metrics
+from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score, recall_score, precision_score
-from sklearn.metrics import classification_report
+from sklearn.metrics import precision_recall_fscore_support
 
 
 def print_result(y, y_pred):
@@ -15,9 +16,33 @@ def print_result(y, y_pred):
     print()
     print(confusion_matrix(y, y_pred))
     print(metrics.accuracy_score(y, y_pred))
+    report = classification_report(y, y_pred)
+    print(report)
 
-    print(classification_report(y, y_pred))
 
+def classification_report_csv(y_true, y_pred, report_path):
+    metrics_summary = precision_recall_fscore_support(
+        y_true=y_true,
+        y_pred=y_pred)
+
+    avg = list(precision_recall_fscore_support(
+        y_true=y_true,
+        y_pred=y_pred,
+        average='weighted'))
+
+    metrics_sum_index = ['precision', 'recall', 'f1-score', 'support']
+    class_report_df = pd.DataFrame(
+        list(metrics_summary),
+        index=metrics_sum_index)
+
+    support = class_report_df.loc['support']
+    total = support.sum()
+    avg[-1] = total
+
+    class_report_df['avg / total'] = avg
+    df_class_report = class_report_df.T
+
+    df_class_report.to_csv(report_path, sep=',')
 
 
 def recall_m(y_true, y_pred):
