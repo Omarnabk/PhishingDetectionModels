@@ -109,15 +109,12 @@ if __name__ == "__main__":
                     training_labels=training_labels,
                     validation_inputs=None,
                     validation_labels=None,
-                    testing_inputs=testing_inputs,
-                    testing_labels=testing_labels,
                     fold_id=fold_id,
                     epochs=config["training"]["epochs"],
                     batch_size=config["training"]["batch_size"],
-                    model_name=f'../compiled_models/char_{model_architecture_name}_model/',
-                    report_name=f'../compiled_models/char_{model_architecture_name}_model/clf_{fold_id}.csv',
-
+                    model_name=f'../compiled_models/char_{model_architecture_name}_model/'
                     )
         model.test(testing_inputs=testing_inputs,
-                   testing_labels=testing_labels
+                   testing_labels=testing_labels,
+                   report_name=f'../compiled_models/char_{model_architecture_name}_model/clf_{fold_id}.csv'
                    )

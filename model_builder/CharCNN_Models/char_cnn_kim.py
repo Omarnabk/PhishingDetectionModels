@@ -92,9 +92,8 @@ class CharCNNKim(object):
     def train(self,
               training_inputs, training_labels,
               validation_inputs=None, validation_labels=None,
-              testing_inputs=None, testing_labels=None,
               fold_id=0,
-              epochs=10, batch_size=128, model_name='', report_name='',
+              epochs=10, batch_size=128, model_name='',
               ):
 
         if not os.path.exists(model_name):
@@ -108,9 +107,7 @@ class CharCNNKim(object):
                                        verbose=1,
                                        mode='min')
 
-
         callbacks_list = [checkpoint, early_stopping]
-        print("Training CharCNNKim model: ")
         if validation_inputs is None:
             history = self.model.fit(training_inputs, training_labels,
                                      validation_split=0.2,
@@ -137,33 +134,18 @@ class CharCNNKim(object):
         self.model.save_weights(model_name + f"/model_{fold_id}.h5")
         print("Saved model to disk")
 
-        print('Testing Result')
-        y_pred_testing = self.model.predict(testing_inputs, batch_size=batch_size, verbose=1)
-        print_result(np.argmax(testing_labels, axis=1), np.argmax(y_pred_testing, axis=1))
-        classification_report_csv(np.argmax(testing_labels, axis=1), np.argmax(y_pred_testing, axis=1), report_name)
-
         return history
 
     def test(self,
              testing_inputs,
-             testing_labels):
-        """
-        Testing function
+             testing_labels,
+             report_name=''
+             ):
 
-        Args:
-            testing_inputs (numpy.ndarray): Testing set inputs
-            testing_labels (numpy.ndarray): Testing set labels
-            batch_size (int): Batch size
-
-        Returns: None
-
-        """
-        # Evaluate inputs
-        test_pred_y = np.argmax(self.model.predict(testing_inputs, verbose=True), axis=1)
-        test_y = np.argmax(testing_labels, axis=1)
-
-        print('Testing')
-        print_result(test_pred_y, test_y)
+        print('Testing Result')
+        y_pred_testing = self.model.predict(testing_inputs, batch_size=32, verbose=1)
+        print_result(np.argmax(testing_labels, axis=1), np.argmax(y_pred_testing, axis=1))
+        classification_report_csv(np.argmax(testing_labels, axis=1), np.argmax(y_pred_testing, axis=1), report_name)
 
     def predict(self, input_indices):
 

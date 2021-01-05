@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bd2c107-aa8c-4137-8197-f67886f8fefb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_kim.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_kim.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_tcn.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_tcn.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_builder/CharCNN_Models/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_builder/CharCNN_Models/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609863128317</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="change early stoppling monitor">
+      <created>1609863290860</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609863290860</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -121,7 +128,8 @@
     <MESSAGE value="improve model structure" />
     <MESSAGE value="Shuffle the samples" />
     <MESSAGE value="Change best model name" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change best model name" />
+    <MESSAGE value="change early stoppling monitor" />
+    <option name="LAST_COMMIT_MESSAGE" value="change early stoppling monitor" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="91" key="#Inspections" timestamp="1609858054433">
@@ -142,25 +150,25 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1609851015324" />
-    <state width="1515" height="307" key="GridCell.Tab.0.bottom" timestamp="1609862635508">
+    <state width="1515" height="209" key="GridCell.Tab.0.bottom" timestamp="1609865669928">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="307" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="209" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609865669928" />
     <state width="1515" height="301" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
-    <state width="1515" height="307" key="GridCell.Tab.0.center" timestamp="1609862635508">
+    <state width="1515" height="209" key="GridCell.Tab.0.center" timestamp="1609865669928">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="307" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="209" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609865669928" />
     <state width="1515" height="301" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
-    <state width="1515" height="307" key="GridCell.Tab.0.left" timestamp="1609862635508">
+    <state width="1515" height="209" key="GridCell.Tab.0.left" timestamp="1609865669927">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="307" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="209" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609865669927" />
     <state width="1515" height="301" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
-    <state width="1515" height="307" key="GridCell.Tab.0.right" timestamp="1609862635508">
+    <state width="1515" height="209" key="GridCell.Tab.0.right" timestamp="1609865669928">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="307" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609862635508" />
+    <state width="1515" height="209" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1280.680@0.0.1536.824" timestamp="1609865669928" />
     <state width="1515" height="301" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609859398420" />
     <state width="1515" height="256" key="GridCell.Tab.1.bottom" timestamp="1609862306808">
       <screen x="0" y="0" width="1536" height="824" />
@@ -199,11 +207,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py</url>
-          <line>152</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model_builder/CharCNN_Models/char_cnn_zhang.py</url>
           <line>133</line>
