@@ -1,12 +1,14 @@
 import json
+
 import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import KFold
+from sklearn.utils import shuffle
+
 from CharCNN_Models.char_cnn_kim import CharCNNKim
 from CharCNN_Models.char_cnn_tcn import CharTCN
 from CharCNN_Models.char_cnn_zhang import CharCNNZhang
 from CharCNN_Models.data_utils import Data
-from sklearn.model_selection import train_test_split
 
 DATASET_ROOT_PATH = '../model_builder/dataset/'
 
@@ -44,7 +46,7 @@ if __name__ == "__main__":
     X = np.array(x_class_ph + x_class_lg)
     y = np.array(y_class_ph + y_x_class_lg)
 
-    X, _, y, _ = train_test_split(X, y, test_size=0.0, random_state=42)
+    X, y = shuffle(X, y, random_state=42)
 
     kf = KFold(n_splits=10, shuffle=True, random_state=42)
     for fold_id, (train_index, test_index) in enumerate(kf.split(X)):
