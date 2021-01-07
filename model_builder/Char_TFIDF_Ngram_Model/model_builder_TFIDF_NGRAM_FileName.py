@@ -1,15 +1,33 @@
+import json
+import os
 import re
 
 import joblib
-import pandas as pd
+import numpy as np
 from sklearn import metrics
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score, recall_score, precision_score
+from sklearn.model_selection import KFold
+from sklearn.model_selection import train_test_split
+
+from data_utils_general import classification_report_csv
 
 model_name = 'char'
+
+
+def write2csv(file_name, all_x, all_y):
+    with open(file_name, 'w', encoding='utf-8') as wrt:
+        for x, y in zip(all_x, all_y):
+            wrt.write('{}\t{}\n'.format(x, y))
+
+
+def load_json(json_path):
+    with open(json_path) as json_file:
+        data = json.load(json_file)
+        return data
 
 
 # small function to find threshold and find best f score - Eval metric of competition
@@ -91,75 +109,51 @@ def df_voc(df_p, cat):
 
 
 if __name__ == "__main__":
-    # seed = 10
-    # random.seed = seed
-    #
-    # sus_lines = list(set(load_file(path='./dataset_filename/sus.txt')))
-    # reg_lines = list(set(load_file(path='./dataset_filename/reg.txt')[:1000000]))
-    #
-    # print('Before Cleaning', len(sus_lines) + len(reg_lines))
-    #
-    #
-    # Y = [1] * len(sus_lines) + [0] * len(reg_lines)
-    # X = sus_lines + reg_lines
-    # x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=seed)
+    DATASET_ROOT_PATH = '../model_builder/dataset/'
+    model_architecture_name = 'ngram_tfidf'
+    base_mode_path = f'../compiled_models/char_{model_architecture_name}_model/'
 
-    df_train = pd.read_csv('./dataset_filename/train.csv')
-    df_test = pd.read_csv('./dataset_filename/test.csv')
+    if not os.path.exists(base_mode_path):
+        os.makedirs(base_mode_path)
 
-    x_train = df_train['path'].values
-    x_test = df_test['path'].values
+    x_class_ph = load_json(DATASET_ROOT_PATH + 'Phishing-30K.json')
+    y_class_ph = len(x_class_ph) * [0]
 
-    y_train = df_train['cat'].values
-    y_test = df_test['cat'].values
+    x_class_lg = load_json(DATASET_ROOT_PATH + 'Legitimate-30K.json')
+    y_x_class_lg = len(x_class_lg) * [1]
 
-    print('Before Cleaning', len(x_train) + len(x_test))
-    print('sus:', len(df_train[df_train.cat == 1]) + len(df_test[df_test.cat == 1]))
-    print('reg:', len(df_train[df_train.cat == 0]) + len(df_test[df_test.cat == 0]))
+    x_class_lg_login = load_json(DATASET_ROOT_PATH + 'LegitimateLogin-30K.json')
+    y_x_class_lg_login = len(x_class_lg_login) * [2]
 
-    print('\nTraining set length:', len(df_train['path'].values))
-    print('\nTesting set length:', len(df_test['path'].values))
+    X = np.array(x_class_ph + x_class_lg)
+    y = np.array(y_class_ph + y_x_class_lg)
 
-    print('\nStart pre-processing')
-    x_train_clean = [clean_sample(x).strip() for x in x_train]
-    x_test_clean = [clean_sample(x).strip() for x in x_test]
+    X, _, y, _ = train_test_split(X, y, test_size=0.0, random_state=42)
 
-    df_train = pd.DataFrame({'path': x_train_clean, 'cat': y_train})
-    df_test = pd.DataFrame({'path': x_test_clean, 'cat': y_test})
+    kf = KFold(n_splits=10, shuffle=True, random_state=42)
+    for fold_id, (train_index, test_index) in enumerate(kf.split(X)):
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
 
-    df_train.drop_duplicates(subset='path', keep='first', inplace=True)
-    df_test.drop_duplicates(subset='path', keep='first', inplace=True)
+        print('\nVectorizing')
+        vectorizer_char = feat_extractor_char(X_train)
 
-    x_train = list(df_train['path'].values)
-    x_test = list(df_test['path'].values)
+        print('\nTransforming')
+        x_train = vectorizer_char.transform(X_train)
+        x_test = vectorizer_char.transform(X_test)
 
-    y_train = list(df_train['cat'].values)
-    y_test = list(df_test['cat'].values)
+        print('\nClassifying')
+        lr_clf = classifier(x_train, y_train)
 
-    print('\nAfter Cleaning', len(x_train) + len(x_test))
-    print('sus:', len(df_train[df_train.cat == 1]) + len(df_test[df_test.cat == 1]))
-    print('reg:', len(df_train[df_train.cat == 0]) + len(df_test[df_test.cat == 0]))
+        print('\nPredicting')
+        y_pred = lr_clf.predict(x_test)
 
-    print('\nTraining set length:', len(x_train))
-    print('\nTesting set length:', len(x_test))
+        print('\nResults!!')
 
-    print('\nVectorizing')
-    vectorizer_char = feat_extractor_char(x_train)
+        report_name = base_mode_path + f'clf_{fold_id}.csv'
+        print_result(y_test, y_pred)
+        classification_report_csv(y_test, y_pred, report_name)
 
-    print('\nTransforming')
-    x_train = vectorizer_char.transform(x_train)
-    x_test = vectorizer_char.transform(x_test)
-
-    print('\nClassifying')
-    lr_clf = classifier(x_train, y_train)
-
-    print('\nPredicting')
-    y_pred = lr_clf.predict(x_test)
-
-    print('\nResults!!')
-    print_result(y_test, y_pred)
-
-    # save_model(vectorizer_char, './Char_TFIDF_Ngram_Model/vect_ngram_fn_TFIDF.pkl')
-    # save_model(lr_clf, './Char_TFIDF_Ngram_Model/clf_FN_char_ngram_LR.pkl')
-
-    print('DONE')
+        save_model(vectorizer_char, base_mode_path + f'/vect_ngram_fn_TFIDF_{fold_id}.pkl')
+        save_model(lr_clf, base_mode_path + f'clf_FN_char_ngram_LR_{fold_id}.pkl')
+        print('DONE')
