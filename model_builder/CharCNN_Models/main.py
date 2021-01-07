@@ -32,13 +32,13 @@ if __name__ == "__main__":
 
     model_architecture_name = FLAGS.model
 
-    x_class_ph = load_json(DATASET_ROOT_PATH + 'Phishing-20K.json')
+    x_class_ph = load_json(DATASET_ROOT_PATH + 'Phishing-30K.json')
     y_class_ph = len(x_class_ph) * [0]
 
-    x_class_lg = load_json(DATASET_ROOT_PATH + 'Legitimate-20K.json')
+    x_class_lg = load_json(DATASET_ROOT_PATH + 'Legitimate-30K.json')
     y_x_class_lg = len(x_class_lg) * [1]
 
-    x_class_lg_login = load_json(DATASET_ROOT_PATH + 'LegitimateLogin-20K.json')
+    x_class_lg_login = load_json(DATASET_ROOT_PATH + 'LegitimateLogin-30K.json')
     y_x_class_lg_login = len(x_class_lg_login) * [2]
 
     X = np.array(x_class_ph + x_class_lg)
@@ -92,7 +92,7 @@ if __name__ == "__main__":
                             dropout_p=config["char_tcn"]["dropout_p"],
                             optimizer=config["char_tcn"]["optimizer"],
                             loss=config["char_tcn"]["loss"])
-        else:
+        elif FLAGS.model == 'zhang':
             model = CharCNNZhang(input_size=config["data"]["input_size"],
                                  alphabet_size=config["data"]["alphabet_size"],
                                  embedding_size=config["char_cnn_zhang"]["embedding_size"],
