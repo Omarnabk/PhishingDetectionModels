@@ -43,45 +43,6 @@ def print_result(y, y_pred):
     print(classification_report(y, y_pred))
 
 
-# model_name = 'char_word'
-
-def load_file(path):
-    with open(path, encoding='utf-8') as rdr:
-        lines = [r for r in rdr.readlines()]
-    return lines
-
-
-def clean_list(lst):
-    lines = [clean_sample(x).strip() for x in lst]
-
-    lines = list(set(lines))
-    if '' in lines:
-        lines.remove('')
-    return lines
-
-
-def clean_sample(text):
-    if '.' in text:
-        text = '.'.join(text.split('.')[:-1])
-
-    return text
-
-    ortho_code_num = re.sub(r'[^A-Za-z]+', '0', text)
-    ortho_code_num = re.sub(r'[a-zA-Z]+', '1', ortho_code_num)
-
-    ortho_code = re.sub(r'[A-Z]', 'C', text)
-    ortho_code = re.sub(r'[a-z]', 'c', ortho_code)
-    ortho_code = re.sub(r'[0-9]', 'N', ortho_code)
-    ortho_code = re.sub(r'[^a-zA-Z0-9]', 'P', ortho_code)
-
-    clean_text = re.sub(r'[0-9]+', '$', text)
-    clean_text = re.sub(r'[^$0-9A-Za-z\s]+', '#', clean_text)
-    clean_text = re.sub(r'(?:^| )\w(?:$| )', '', clean_text)
-    clean_text = clean_text.strip()
-
-    return clean_text + ' ' + ortho_code_num + ' ' + ortho_code
-
-
 def feat_extractor_char(FN_train):
     vectorizer = TfidfVectorizer(ngram_range=(2, 6), analyzer='char', max_df=0.9999, lowercase=True, min_df=0.0005)
     vectorizer = vectorizer.fit(FN_train)
