@@ -1,6 +1,5 @@
 import json
 
-import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import KFold
 from sklearn.utils import shuffle
@@ -43,8 +42,8 @@ if __name__ == "__main__":
     x_class_lg_login = load_json(DATASET_ROOT_PATH + 'LegitimateLogin-30K.json')
     y_x_class_lg_login = len(x_class_lg_login) * [2]
 
-    X = np.array(x_class_ph + x_class_lg)
-    y = np.array(y_class_ph + y_x_class_lg)
+    X = x_class_ph + x_class_lg
+    y = y_class_ph + y_x_class_lg
 
     X, y = shuffle(X, y, random_state=42)
 
