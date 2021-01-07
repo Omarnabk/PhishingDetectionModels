@@ -2,10 +2,10 @@ import json
 import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import KFold
-from model_builder.CharCNN_Models.char_cnn_kim import CharCNNKim
-from model_builder.CharCNN_Models.char_cnn_tcn import CharTCN
-from model_builder.CharCNN_Models.char_cnn_zhang import CharCNNZhang
-from model_builder.CharCNN_Models.data_utils import Data
+from CharCNN_Models.char_cnn_kim import CharCNNKim
+from CharCNN_Models.char_cnn_tcn import CharTCN
+from CharCNN_Models.char_cnn_zhang import CharCNNZhang
+from CharCNN_Models.data_utils import Data
 from sklearn.model_selection import train_test_split
 
 DATASET_ROOT_PATH = '../model_builder/dataset/'
