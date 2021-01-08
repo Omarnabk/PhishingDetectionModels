@@ -12,6 +12,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score, recall_score, precision_score
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 from data_utils_general import classification_report_csv
 
@@ -71,8 +72,14 @@ def df_voc(df_p, cat):
 
 if __name__ == "__main__":
     DATASET_ROOT_PATH = '../model_builder/dataset/'
-    model_architecture_name = 'ngram_tfidf'
-    base_mode_path = f'../compiled_models/char_{model_architecture_name}_model/'
+
+    # Phishing VS Legitimate
+    # model_architecture_name = 'char_ngram_tfidf_model_phVSLeg'
+
+    # Phishing VS LegitimateLogin
+    model_architecture_name = 'char_ngram_tfidf_model_phVSLegLogin'
+
+    base_mode_path = f'../compiled_models/{model_architecture_name}/'
 
     if not os.path.exists(base_mode_path):
         os.makedirs(base_mode_path)
@@ -86,8 +93,18 @@ if __name__ == "__main__":
     x_class_lg_login = load_json(DATASET_ROOT_PATH + 'LegitimateLogin-30K.json')
     y_x_class_lg_login = len(x_class_lg_login) * [2]
 
-    X = np.array(x_class_ph + x_class_lg)
-    y = np.array(y_class_ph + y_x_class_lg)
+    # Phishing VS Legitimate
+    # X = x_class_ph + x_class_lg
+    # y = y_class_ph + y_x_class_lg
+
+    # Phishing VS LegitimateLogin
+    X = x_class_ph + x_class_lg_login
+    y = y_class_ph + y_x_class_lg_login
+
+    X, y = shuffle(X, y, random_state=42)
+
+    X = np.array(X)
+    y = np.array(y)
 
     X, _, y, _ = train_test_split(X, y, test_size=0.0, random_state=42)
 
