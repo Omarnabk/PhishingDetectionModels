@@ -1,5 +1,6 @@
 import json
 
+import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import KFold
 from sklearn.utils import shuffle
@@ -24,7 +25,7 @@ def load_json(json_path):
         return data
 
 
-tf.flags.DEFINE_string("model", "zhang", "Specifies which model to use: char_cnn_zhang or char_cnn_kim")
+tf.flags.DEFINE_string("model", "kim", "Specifies which model to use: char_cnn_zhang or char_cnn_kim")
 FLAGS = tf.flags.FLAGS
 
 if __name__ == "__main__":
@@ -46,6 +47,9 @@ if __name__ == "__main__":
     y = y_class_ph + y_x_class_lg
 
     X, y = shuffle(X, y, random_state=42)
+
+    X = np.array(X)
+    y = np.array(y)
 
     kf = KFold(n_splits=10, shuffle=True, random_state=42)
     for fold_id, (train_index, test_index) in enumerate(kf.split(X)):
