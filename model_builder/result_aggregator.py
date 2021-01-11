@@ -1,5 +1,5 @@
 # model_architecture_name = 'char_ngram_tfidf_model'
-model_architecture_name = 'char_zhang_model'
+model_architecture_name = 'char_zhang_Login__model'
 base_mode_path = f'../compiled_models/{model_architecture_name}/'
 
 import os
