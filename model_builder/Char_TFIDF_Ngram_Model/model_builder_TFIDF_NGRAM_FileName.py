@@ -7,6 +7,7 @@ import numpy as np
 from sklearn import metrics
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score, recall_score, precision_score
@@ -34,8 +35,15 @@ def load_json(json_path):
 # small function to find threshold and find best f score - Eval metric of competition
 def print_result(y, y_pred):
     print('macro F1 is: ', f1_score(y, y_pred, average='macro'))
+    print('macro F1 is: ', f1_score(y, y_pred, average='micro'))
+
     print('macro recall is: ', recall_score(y, y_pred, average='macro'))
+    print('macro recall is: ', recall_score(y, y_pred, average='micro'))
+
     print('macro precision is: ', precision_score(y, y_pred, average='macro'))
+    print('macro precision is: ', precision_score(y, y_pred, average='micro'))
+
+    print('Accuracy is: ', accuracy_score(y, y_pred))
 
     print()
     print(confusion_matrix(y, y_pred))
