@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os.path as osp
+import json
 
 import joblib
+import numpy as np
+from keras.models import model_from_json
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
 
-from ..model.resources import clean_sample_char
+from CharCNN_Models.data_utils import Data
 
 __author__ = "Wesam Al-Nabki"
 
@@ -21,43 +27,90 @@ class ServiceRoutines:
         Initialization function for the FNC function
         """
 
-        this_dir = osp.dirname(__file__)
-        model_path = osp.join(this_dir, '..')
+        classification_c_model_path = '../compiled_models/char_ngram_tfidf_model_phVSLeg/clf_FN_char_ngram_LR_5.pkl'
+        vectorization_model_path_only_char = '../compiled_models/char_ngram_tfidf_model_phVSLeg/vect_ngram_fn_TFIDF_5.pkl'
 
-        classification_c_model_path = model_path + '/data/clf_c.pkl'
-        vectorization_model_path_only_char = model_path + '/data/vect_only_char.pkl'
-
-        self.FNC_Threshold = 0.70
         self.classifier = joblib.load(classification_c_model_path)
         self.vectorizer_char = joblib.load(vectorization_model_path_only_char)
 
-    def classify_file_name_charngramTFIDF(self, text):
-        """
-        File Name Classification method based on TFIDF N-gram for text representation and Logistic Regression for Text
-        classification
-    
-        :type text: string
-        :param text: file name to be classified it is CSA related or not
-    
-        :return: the class of the file name as a binary flag: [1] if CSA-related file, [0] otherwise. Also, it returns
-        the prediction confidence.
-    
-        :Example:
-            *   (0,0.88): this output refers to a non-CSA file name with a prediction confidence of 0.88.
-            *   (1,0.96): this output refers to a CSA file name with a prediction confidence of 0.96.
-        """
+        # kim model:
+        cnn_model_root_path_kim = '../compiled_models/char_kim_model_phvsleg/'
+        json_file = open(cnn_model_root_path_kim + 'model_0.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        self.cnn_model_kim = model_from_json(loaded_model_json)
+        # load weights into new model
+        self.cnn_model_kim.load_weights(cnn_model_root_path_kim + "model_0.h5")
+        print("Loaded model from disk")
 
-        clean_example = clean_sample_char(text)
+        # zhang model:
+        cnn_model_root_path_zhang = '../compiled_models/char_zhang_model_phvsleg/'
+        json_file = open(cnn_model_root_path_zhang + 'model_0.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        self.cnn_model_zhang = model_from_json(loaded_model_json)
+        # load weights into new model
+        self.cnn_model_zhang.load_weights(cnn_model_root_path_zhang + "model_0.h5")
+        print("Loaded model from disk")
 
+        cnn_model_config = json.load(open("../model_builder/CharCNN_Models/config.json"))
+
+        self.testing_data = Data(alphabet=cnn_model_config["data"]["alphabet"],
+                                 input_size=cnn_model_config["data"]["input_size"],
+                                 num_of_classes=2)
+
+    def classify_domain_name_charngramTFIDF(self, text):
         # Encode the text
-        v_char = self.vectorizer_char.transform([clean_example])
+        v_char = self.vectorizer_char.transform(text)
 
-        if clean_example:
-            # Predict the text category:
-            fn_class_prob = self.classifier.predict_proba(v_char)[0]
-        else:
-            return -1, 0.0
+        # Predict the text category:
+        fn_class_prob = self.classifier.predict_proba(v_char)
+        return np.argmax(fn_class_prob, axis=1)
 
-        if fn_class_prob[1] >= self.FNC_Threshold:
-            return 1, round(fn_class_prob[1], 2)
-        return 0, round(fn_class_prob[0], 2)
+    def classify_domain_name_cnn_kim(self, X_test, y_test):
+        testing_inputs, testing_labels = self.testing_data.get_all_data(X_test, y_test)
+
+        y_pred_testing = self.cnn_model_kim.predict(testing_inputs, batch_size=1024, verbose=1)
+        return np.argmax(y_pred_testing, axis=1)
+
+    def classify_domain_name_cnn_zhang(self, X_test, y_test):
+        testing_inputs, testing_labels = self.testing_data.get_all_data(X_test, y_test)
+
+        y_pred_testing = self.cnn_model_zhang.predict(testing_inputs, batch_size=1024, verbose=1)
+        return np.argmax(y_pred_testing, axis=1)
+
+
+def load_json(json_path):
+    with open(json_path) as json_file:
+        data = json.load(json_file)
+        return data
+
+
+if __name__ == "__main__":
+    # the output of the classifier is:
+    # class 0 --> phishing, class 1--> normal
+
+    sr = ServiceRoutines()
+
+    testset = load_json('../model_builder/dataset/LegitimateLogin-30K.json')
+    # all the test set here is normal (legitimate) --> all "1"
+    y_true = [1] * len(testset)
+
+    y_pred = sr.classify_domain_name_charngramTFIDF(testset)
+
+    print('\n{}'.format(classification_report(y_pred, y_true)))
+    print('\n{}'.format(confusion_matrix(y_pred, y_true)))
+    print('\nF1-Score: {}'.format(f1_score(y_pred, y_true)))
+    print('\nAccuracy: {}'.format(accuracy_score(y_pred, y_true)))
+
+    y_pred = sr.classify_domain_name_cnn_kim(testset, y_true)
+    print('\n{}'.format(classification_report(y_pred, y_true)))
+    print('\n{}'.format(confusion_matrix(y_pred, y_true)))
+    print('\nF1-Score: {}'.format(f1_score(y_pred, y_true)))
+    print('\nAccuracy: {}'.format(accuracy_score(y_pred, y_true)))
+
+    y_pred = sr.classify_domain_name_cnn_zhang(testset, y_true)
+    print('\n{}'.format(classification_report(y_pred, y_true)))
+    print('\n{}'.format(confusion_matrix(y_pred, y_true)))
+    print('\nF1-Score: {}'.format(f1_score(y_pred, y_true)))
+    print('\nAccuracy: {}'.format(accuracy_score(y_pred, y_true)))

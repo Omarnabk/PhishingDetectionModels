@@ -66,17 +66,6 @@ class Data(object):
             self.dict[char] = idx + 1
         self.length = input_size
 
-    # def load_data(self):
-    #     """
-    #     Load raw data from the source file into data variable.
-    #
-    #     Returns: None
-    #
-    #     """
-    #
-    #     self.data = pd.read_csv(self.data_source, sep=';', index_col=False)
-    #     print("Data loaded from " + self.data_source + " Length is " + str(len(self.data)))
-
     def get_all_data(self, x, y):
         """
         Return all loaded data from data variable.
